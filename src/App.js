@@ -96,7 +96,17 @@ function App() {
               <div className="date">{dateBuilder(new Date())}</div>
             </div>
             <div className="weather-box">
-              <div className="temp">{Math.round(weather.main.temp)}°f</div>
+              <div className="temp">
+                {Math.round(weather.main.temp)}°f
+                <div className="cnt-high-low">
+                  <h2 className="low">
+                    Low: {Math.round(weather.main.temp_min)}°f
+                  </h2>
+                  <h2 className="high">
+                    High: {Math.round(weather.main.temp_max)}°f
+                  </h2>
+                </div>
+              </div>
               <div className="weather">{weather.weather[0].main}</div>
             </div>
           </div>
