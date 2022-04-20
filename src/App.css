@@ -101,10 +101,12 @@ main {
 }
 .low {
   font-size: 15px;
+  text-shadow: none;
 }
 
 .high {
   font-size: 15px;
+  text-shadow: none;
 }
 
 .weather-box .weather {
