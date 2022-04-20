@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 const api = {
   key: "3235378d4086a2549b99bc2977e012ec",
@@ -8,6 +8,19 @@ const api = {
 function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
+
+  useEffect(() => {
+    getWeather();
+  }, []);
+
+  const getWeather = async () => {
+    const response = await fetch(
+      `${api.base}weather?q=queens&units=imperial&APPID=${api.key}`
+    );
+    const data = await response.json();
+    setWeather(data);
+    console.log(data);
+  };
 
   const search = (e) => {
     if (e.key === "Enter") {
