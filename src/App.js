@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+
 const api = {
-  key: "3235378d4086a2549b99bc2977e012ec",
+  key: API_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
+// const apiGeo = {
+//   key: API_KEY,
+//   base: "http://api.openweathermap.org/geo/1.0/direct?q=",
+// };
+
+console.log();
+
 function App() {
   const [query, setQuery] = useState("");
+  const [queryZip, setQueryZip] = useState("");
   const [weather, setWeather] = useState({});
 
   useEffect(() => {
@@ -22,9 +32,10 @@ function App() {
     console.log(data);
   };
 
-  const search = (e) => {
+  const searchByPlace = (e) => {
     if (e.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=imperial&APPID=${api.key}`)
+        // fetch(`${api.base}weather?zip=${query}&units=imperial&APPID=${api.key}`)
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
@@ -34,6 +45,20 @@ function App() {
     }
   };
 
+  const searchByZip = (e) => {
+    if (e.key === "Enter") {
+      // fetch(`${api.base}weather?q=${query}&units=imperial&APPID=${api.key}`)
+      fetch(
+        `${api.base}weather?zip=${queryZip}&units=imperial&APPID=${api.key}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setWeather(result);
+          setQueryZip("");
+          console.log(result);
+        });
+    }
+  };
   const dateBuilder = (d) => {
     let months = [
       "January",
@@ -66,6 +91,7 @@ function App() {
 
     return `${day}, ${month} ${date},  ${year}`;
   };
+
   return (
     <div
       className={
@@ -81,10 +107,18 @@ function App() {
           <input
             type="text"
             className="search-bar"
-            placeholder="Search..."
+            placeholder="Search by Place..."
             onChange={(e) => setQuery(e.target.value)}
-            onKeyPress={search}
+            onKeyPress={searchByPlace}
             value={query}
+          />
+          <input
+            type="text"
+            className="search-bar2"
+            placeholder="Search by Zip code..."
+            onChange={(e) => setQueryZip(e.target.value)}
+            onKeyPress={searchByZip}
+            value={queryZip}
           />
         </div>
         {typeof weather.main != "undefined" ? (
@@ -97,13 +131,13 @@ function App() {
             </div>
             <div className="weather-box">
               <div className="temp">
-                {Math.round(weather.main.temp)}°f
+                {Math.round(weather.main.temp)}°
                 <div className="cnt-high-low">
                   <h2 className="low">
-                    Low: {Math.round(weather.main.temp_min)}°f
+                    Low: {Math.round(weather.main.temp_min)}°
                   </h2>
                   <h2 className="high">
-                    High: {Math.round(weather.main.temp_max)}°f
+                    High: {Math.round(weather.main.temp_max)}°
                   </h2>
                 </div>
               </div>
