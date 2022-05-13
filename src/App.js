@@ -3,17 +3,13 @@ import "./App.css";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const api = {
-  key: API_KEY,
-  // key: "3235378d4086a2549b99bc2977e012ec",
+  // key: API_KEY,
+  key: "3235378d4086a2549b99bc2977e012ec",
   base: "https://api.openweathermap.org/data/2.5/",
+  // base: "https://pro.openweathermap.org/data/2.5/forecast/climate?",
 };
 
-// const apiGeo = {
-//   key: API_KEY,
-//   base: "http://api.openweathermap.org/geo/1.0/direct?q=",
-// };
-
-console.log();
+console.log(API_KEY);
 
 function App() {
   const [query, setQuery] = useState("");
@@ -28,6 +24,7 @@ function App() {
     const response = await fetch(
       `${api.base}weather?q=queens&units=imperial&APPID=${api.key}`
     );
+    console.log("this is respone " + response);
     const data = await response.json();
     setWeather(data);
     console.log(data);
