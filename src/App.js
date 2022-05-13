@@ -4,6 +4,7 @@ const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 const api = {
   key: API_KEY,
+  // key: "3235378d4086a2549b99bc2977e012ec",
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
